@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# VSCode settings
+.vscode/
+
+# Директории и файлы, не нужные для контроля версий
+/dist/
+.DS_Store
+.env
+
+# Логи
+*.log
