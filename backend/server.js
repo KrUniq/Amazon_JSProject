@@ -1,8 +1,8 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import morgan from 'morgan'; // Для логирования запросов
 import path from 'path';  // Для работы с путями файлов
+import { logRequest } from './logger.js';  // Импортируем функцию логирования
 import { getProducts, renderCreateProductForm, createProduct, viewProductDetails, editProductForm, updateProduct, deleteProduct } from './products.js'; // Импортируем функцию для получения продуктов
 import {getSystemInfo} from './systemInfo.js';
 import { getFileInfo } from './fileInfo.js'
@@ -23,8 +23,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Логирование запросов
-app.use(morgan('combined'));
+// Логирование запросов с уникальными ID и временем выполнения
+app.use(logRequest); 
 
 // Указываем Express обслуживать статические файлы из папки 'data'
 app.use('/data', express.static(path.resolve('backend/data')));
@@ -38,7 +38,6 @@ app.get('/file-info', getFileInfo);
 // Страница с продуктами
 app.get('/products', getProducts);
 
-
 // Страница для отображения формы создания нового продукта
 app.get('/products/create', renderCreateProductForm);
 
@@ -51,17 +50,14 @@ app.get('/products/:asin', viewProductDetails);
 // Страница для редактирования продукта
 app.get('/products/edit/:asin', editProductForm);
 
-
 // Обработка POST-запроса для обновления продукта
 app.post('/products/edit/:asin', updateProduct);
 
 // Обработка удаления продукта
 app.post('/products/delete/:asin',deleteProduct);
 
-
 // Обработка ошибок 404
 app.use(handle404Error);
-
 
 // Стартуем сервер
 app.listen(PORT, () => {
