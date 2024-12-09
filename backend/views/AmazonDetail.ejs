@@ -1,0 +1,86 @@
+<!-- AmazonDetail.ejs -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о продукте - <%= product.name %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Amazon Products</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">Список продуктов</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products/create">Добавить новый продукт</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/system-info">Информация об ОС сервера</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/file-info">Информация из файла</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="mt-4">Информация о продукте: <%= product.name %></h1>
+        
+        <!-- Детальная информация о продукте -->
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Основная информация</h3>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Название продукта</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="asin" class="form-label">ASIN</label>
+                    <input type="text" class="form-control" id="asin" name="asin" value="<%= product.asin %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Цена</label>
+                    <input type="number" step="0.01" class="form-control" id="price" name="price" value="<%= product.price %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="stars" class="form-label">Рейтинг</label>
+                    <input type="number" step="0.1" class="form-control" id="stars" name="stars" value="<%= product.stars || '' %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="total_reviews" class="form-label">Общее количество отзывов</label>
+                    <input type="number" class="form-control" id="total_reviews" name="total_reviews" value="<%= product.total_reviews || '' %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="purchase_history_message" class="form-label">Сообщение о покупке</label>
+                    <input type="text" class="form-control" id="purchase_history_message" name="purchase_history_message" value="<%= product.purchase_history_message || '' %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Изображение</label>
+                    <input type="text" class="form-control" id="image" name="image" value="<%= product.image || '' %>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="url" class="form-label">Ссылка</label>
+                    <input type="text" class="form-control" id="url" name="url" value="<%= product.url || '' %>" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a href="/products" class="btn btn-secondary">Вернуться к списку продуктов</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

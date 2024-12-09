@@ -1,6 +1,6 @@
 // AmazonModel.js
 import { DataTypes } from 'sequelize';
-import sequelize from '../database/connection.js';
+import sequelize from './connection.js';
 
 const AmazonProduct = sequelize.define('AmazonProduct', {
     position: {
@@ -11,6 +11,7 @@ const AmazonProduct = sequelize.define('AmazonProduct', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true, // Уникальное ограничение
+        msg: 'Продукт с таким ASIN уже существует!',
     },
     name: {
         type: DataTypes.STRING,
@@ -31,6 +32,10 @@ const AmazonProduct = sequelize.define('AmazonProduct', {
     stars: {
         type: DataTypes.FLOAT,
         allowNull: true,
+        validate: {
+            min: 0,  // Минимальное значение рейтинга
+            max: 5,  // Максимальное значение рейтинга
+        },
     },
     total_reviews: {
         type: DataTypes.INTEGER,
@@ -51,6 +56,7 @@ const AmazonProduct = sequelize.define('AmazonProduct', {
 }, {
     sequelize,
     modelName: 'AmazonProduct',
+    tableName: 'AmazonProducts', 
     timestamps: true,  // Добавляем автоматическое отслеживание времени создания и обновления
 });
 

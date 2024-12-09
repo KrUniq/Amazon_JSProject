@@ -1,0 +1,149 @@
+<!-- Amazon.ejs -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продукты Amazon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Amazon Products</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/products">Список продуктов</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products/create">Добавить новый продукт</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/system-info">Информация об ОС сервера</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/file-info">Информация из файла</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="mt-4">Список продуктов Amazon</h1>
+        
+        <!-- Форма для фильтрации -->
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col">
+                    <label for="filterPriceMin">Минимальная цена:</label>
+                    <input type="number" id="filterPriceMin" name="filterPriceMin" class="form-control" value="<%= filterPriceMin %>">
+                </div>
+                <div class="col">
+                    <label for="filterPriceMax">Максимальная цена:</label>
+                    <input type="number" id="filterPriceMax" name="filterPriceMax" class="form-control" value="<%= filterPriceMax %>">
+                </div>
+                <div class="col">
+                    <label for="filterRatingMin">Минимальный рейтинг:</label>
+                    <input type="number" id="filterRatingMin" name="filterRatingMin" class="form-control" step="0.1" value="<%= filterRatingMin %>">
+                </div>
+                <div class="col">
+                    <label for="filterRatingMax">Максимальный рейтинг:</label>
+                    <input type="number" id="filterRatingMax" name="filterRatingMax" class="form-control" step="0.1" value="<%= filterRatingMax %>">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mt-4">Применить фильтры</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Таблица с продуктами -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="width: 500px;"> <!-- Устанавливаем ширину столбца с названием -->
+                        <a href="?sortBy=name&sortOrder=<%= sortOrder === 'ASC' ? 'DESC' : 'ASC' %>&filterPriceMin=<%= filterPriceMin %>&filterPriceMax=<%= filterPriceMax %>&filterRatingMin=<%= filterRatingMin %>&filterRatingMax=<%= filterRatingMax %>">
+                            Название
+                            <% if (sortBy === 'name') { %>
+                                <% if (sortOrder === 'ASC') { %>
+                                    <i class="bi bi-arrow-up"></i> <!-- Стрелка вверх -->
+                                <% } else { %>
+                                    <i class="bi bi-arrow-down"></i> <!-- Стрелка вниз -->
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sortBy=price&sortOrder=<%= sortOrder === 'ASC' ? 'DESC' : 'ASC' %>&filterPriceMin=<%= filterPriceMin %>&filterPriceMax=<%= filterPriceMax %>&filterRatingMin=<%= filterRatingMin %>&filterRatingMax=<%= filterRatingMax %>">
+                            Цена
+                            <% if (sortBy === 'price') { %>
+                                <% if (sortOrder === 'ASC') { %>
+                                    <i class="bi bi-arrow-up"></i> <!-- Стрелка вверх -->
+                                <% } else { %>
+                                    <i class="bi bi-arrow-down"></i> <!-- Стрелка вниз -->
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sortBy=stars&sortOrder=<%= sortOrder === 'ASC' ? 'DESC' : 'ASC' %>&filterPriceMin=<%= filterPriceMin %>&filterPriceMax=<%= filterPriceMax %>&filterRatingMin=<%= filterRatingMin %>&filterRatingMax=<%= filterRatingMax %>">
+                            Рейтинг
+                            <% if (sortBy === 'stars') { %>
+                                <% if (sortOrder === 'ASC') { %>
+                                    <i class="bi bi-arrow-up"></i> <!-- Стрелка вверх -->
+                                <% } else { %>
+                                    <i class="bi bi-arrow-down"></i> <!-- Стрелка вниз -->
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="?sortBy=total_reviews&sortOrder=<%= sortOrder === 'ASC' ? 'DESC' : 'ASC' %>&filterPriceMin=<%= filterPriceMin %>&filterPriceMax=<%= filterPriceMax %>&filterRatingMin=<%= filterRatingMin %>&filterRatingMax=<%= filterRatingMax %>">
+                            Отзывы
+                            <% if (sortBy === 'total_reviews') { %>
+                                <% if (sortOrder === 'ASC') { %>
+                                    <i class="bi bi-arrow-up"></i> <!-- Стрелка вверх -->
+                                <% } else { %>
+                                    <i class="bi bi-arrow-down"></i> <!-- Стрелка вниз -->
+                                <% } %>
+                            <% } %>
+                        </a>
+                    </th>
+                    <th>Действия</th>
+                </tr>
+            </thead>            
+            
+            
+            <tbody>
+                <% products.forEach(product => { %>
+                    <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.stars || 'Нет данных' %></td>
+                        <td><%= product.total_reviews || 'Нет данных' %></td>
+                        <td>
+                            <!-- Кнопка просмотра товара -->
+                            <a href="/products/<%= product.asin %>" class="btn btn-info btn-sm">
+                                <i class="bi bi-eye"></i> Просмотр
+                            </a>
+                            <a href="/products/edit/<%= product.asin %>" class="btn btn-warning btn-sm">Редактировать</a>
+                            <form action="/products/delete/<%= product.asin %>" method="POST" style="display:inline-block;" onsubmit="return confirm('Вы уверены, что хотите удалить этот продукт?');">
+                                <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                            </form>
+                        </td>                        
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style i.bi-arrow-up, i.bi-arrow-down {font-size: 0.8em;}></style>
+</body>
+</html>

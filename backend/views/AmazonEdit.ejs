@@ -1,0 +1,63 @@
+<!-- AmazonEdit.ejs -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать продукт</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Amazon Products</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/products">Список продуктов</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products/create">Добавить новый продукт</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/system-info">Информация об ОС сервера</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/file-info">Информация из файла</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="mt-4">Редактирование продукта</h1>
+
+        <form action="/products/edit/<%= product.asin %>" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Название продукта</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= product.name %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="asin" class="form-label">ASIN</label>
+                <input type="text" class="form-control" id="asin" name="asin" value="<%= product.asin %>" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Цена</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" value="<%= product.price %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="stars" class="form-label">Рейтинг</label>
+                <input type="number" step="0.1" class="form-control" id="stars" name="stars" min="0" max="5" value="<%= product.stars || '' %>">
+            </div>
+            <div class="mb-3">
+                <label for="total_reviews" class="form-label">Общее количество отзывов</label>
+                <input type="number" class="form-control" id="total_reviews" name="total_reviews" value="<%= product.total_reviews || '' %>">
+            </div>
+            <button type="submit" class="btn btn-primary">Обновить продукт</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

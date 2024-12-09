@@ -1,0 +1,55 @@
+<!-- SystemInfo.ejs -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация об ОС</title>
+    <!-- Подключение Bootstrap CSS для адаптивного дизайна -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Навигационное меню -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Amazon Products</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products">Список продуктов</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/products/create">Добавить новый продукт</a>
+                        </li>
+                        <!-- Новые пункты меню -->
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/system-info">Информация об ОС сервера</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/file-info">Информация из файла</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1 class="mt-4">Информация об ОС сервера</h1>
+
+        <!-- Информация о системе -->
+        <ul>
+            <li><strong>Тип ОС:</strong> <%= systemInfo.osType %></li>
+            <li><strong>Платформа ОС:</strong> <%= systemInfo.osPlatform %></li>
+            <li><strong>Общий объём памяти:</strong> <%= systemInfo.totalMemory %> байт</li>
+            <li><strong>Свободная память:</strong> <%= systemInfo.freeMemory %> байт</li>
+            <li><strong>Время работы системы:</strong> <%= systemInfo.uptime %> секунд</li>
+        </ul>
+    </div>
+
+    <!-- Подключение Bootstrap JS для работы меню -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
