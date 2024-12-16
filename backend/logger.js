@@ -10,7 +10,6 @@ export const logRequest = (req, res, next) => {
     // Логируем запрос с уникальным ID
     morgan('dev')(req, res, () => {});
 
-    // После завершения запроса логируем время выполнения
     res.on('finish', () => {
         const duration = Date.now() - start; // Время выполнения запроса
         console.log(`[${requestId}] ${req.method} ${req.originalUrl} - ${res.statusCode} - ${duration}ms`);
